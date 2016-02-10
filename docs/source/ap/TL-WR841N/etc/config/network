@@ -1,0 +1,90 @@
+# interface and VLAN setup
+
+# Interfaces
+# untagged (vlan vid 0) 192.168.0.2
+# tagged (vlan vid 10) 192.168.10.2
+# tagged (vlan vid 20) 192.168.20.2
+# tagged (vlan vid 30) 192.168.20.2
+
+config interface 'lan'
+	option force_link '1'
+	option type 'bridge'
+	option proto 'static'
+	option netmask '255.255.255.0'
+	option ipaddr '192.168.0.2'
+	option ifname 'eth0'
+
+config interface 'vlan10'
+	option proto 'static'
+	option netmask '255.255.255.0'
+	option type 'bridge'
+	option ipaddr '192.168.10.2'
+	option ifname 'eth0.10'
+
+config interface 'vlan20'
+	option proto 'static'
+	option netmask '255.255.255.0'
+	option type 'bridge'
+	option ipaddr '192.168.20.2'
+	option ifname 'eth0.20'
+
+config interface 'vlan30'
+	option proto 'static'
+	option netmask '255.255.255.0'
+	option type 'bridge'
+	option ipaddr '192.168.30.2'
+	option ifname 'eth0.30'
+
+# Switch Setup
+# port 0 == CPU
+# port 1 == vlan vid 10
+# port 2 == vlan vid 20
+# port 3 == vlan vid 30
+# port 4 == 10+20+30+untagged connection to VPN gateway
+
+config switch
+	option name 'switch0'
+	option reset '1'
+	option enable_vlan '1'
+
+config 'switch_port'
+    # untagged packets entering on port <port> get vlan vid <pvid>
+    option 'port'      '4'
+    option 'pvid'      '0'
+
+config switch_vlan
+	option device 'switch0'
+	option vlan '1'
+	option vid '0'
+	option ports '0 4'
+
+config switch_vlan
+	option device 'switch0'
+	option vlan '2'
+	option ports '0t 1 4t'
+	option vid '10'
+
+config switch_vlan
+	option device 'switch0'
+	option vlan '3'
+	option ports '0t 2 4t'
+	option vid '20'
+
+config switch_vlan
+	option device 'switch0'
+	option vlan '4'
+	option ports '0t 3 4t'
+	option vid '30'
+
+# standard stuff
+
+config globals 'globals'
+	option ula_prefix 'fd6e:cc54:f5c5::/48'
+
+config interface 'loopback'
+	option ifname 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+
+

@@ -1,0 +1,55 @@
+# Wireless setup
+# check country, channel and key (wireless password, >= 8 chars)
+# check whether you want to isolate wireless clients from each other
+#
+# SSID - VLAN - interface mapping
+# ssid lan    on lan    network (eth0,    untagged)
+# ssid vlan10 on vlan10 network (eth0.10, vlan vid 10)
+# ssid vlan20 on vlan20 network (eth0.20, vlan vid 20)
+# ssid vlan30 on vlan30 network (eth0.30, vlan vid 30)
+
+config wifi-device 'radio0'
+	option type 'mac80211'
+	option channel '11'
+	option hwmode '11g'
+	option path 'platform/qca953x_wmac'
+	option htmode 'HT20'
+	option txpower '19'
+	option country 'DE'
+
+config wifi-iface
+	option device 'radio0'
+	option mode 'ap'
+	option ssid 'lan'
+	option encryption 'psk2+ccmp'
+	option key 'verysecret'
+	option network 'lan'
+    option isolate '1'
+
+config wifi-iface
+	option device 'radio0'
+	option mode 'ap'
+	option encryption 'psk2+ccmp'
+	option key '12345678'
+	option ssid 'vlan10'
+	option network 'vlan10'
+    option isolate '1'
+
+config wifi-iface
+	option device 'radio0'
+	option mode 'ap'
+	option ssid 'vlan20'
+	option encryption 'psk2+ccmp'
+	option key '12345678'
+	option network 'vlan20'
+    option isolate '1'
+
+config wifi-iface
+	option device 'radio0'
+	option mode 'ap'
+	option ssid 'vlan30'
+	option encryption 'psk2+ccmp'
+	option key '12345678'
+	option network 'vlan30'
+    option isolate '1'
+
