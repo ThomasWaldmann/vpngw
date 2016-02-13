@@ -130,7 +130,7 @@ See: /etc/unbound/unbound.conf.d/my.conf
 DHCP Server
 -----------
 
-Centrally assign IPv4 IPs to all internal clients (lan + vlan1/2/3).
+Centrally assign IPv4 IPs to all internal clients (lan + vlan10/20/30).
 
 ::
 

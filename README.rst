@@ -36,6 +36,12 @@ Components
   - multiple LAN ports, each VPN has a specific LAN port
   - separation of VPNs is done using VLANs
 
+- alternatively, Ubiquiti Access Points (UAP) + optional separate switch
+ 
+  - UAPs have VLAN support and can be centrally managed
+  - if you need wired ports for the users, use a manageable switch with VLANs
+
+
 Links
 =====
 

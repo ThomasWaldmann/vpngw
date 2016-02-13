@@ -36,9 +36,9 @@ Either use DHCP for the UAPs or give them fixed IPs 192.168.0.2+.
 Add 4 WLANs:
 lan   not tagged     this might give direct internet access, protect by
                      a different WPA2 password than the other 3.
-vlan1 tagged vid 10  
-vlan2 tagged vid 20
-vlan3 tagged vid 30
+vlan10 tagged vid 10  
+vlan20 tagged vid 20
+vlan30 tagged vid 30
 
 Note: do NOT use wireless uplinks, they do not support VLANs.
       also, performance is much better with wired uplinks.
