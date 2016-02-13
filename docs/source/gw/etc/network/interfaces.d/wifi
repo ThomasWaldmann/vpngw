@@ -1,0 +1,11 @@
+# this is just for convenience in case you need a wireless connection,
+# the wifi interface is not used by vpngw.
+
+#auto wlan0
+iface wlan0 inet dhcp
+ #wpa-ssid XXX
+ #wpa-psk xxxxxxxx
+ #or, for a open network:
+ wpa-ssid Freifunk
+ wpa-key-mgmt NONE
+

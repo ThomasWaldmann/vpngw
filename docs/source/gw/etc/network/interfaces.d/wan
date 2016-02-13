@@ -1,0 +1,9 @@
+# this is the external USB adaptor connected to the internet router/modem
+
+auto eth1
+iface eth1 inet dhcp
+
+#iface eth1 inet static
+# address 10.10.10.2/24
+# gateway 10.10.10.1
+# dns-nameservers 10.10.10.1

@@ -1,0 +1,15 @@
+#
+# reserved values
+#
+255	local
+254	main
+253	default
+0	unspec
+#
+# local
+#
+#1	inr.ruhep
+2	t_tun0
+3	t_tun1
+4	t_tun2
+

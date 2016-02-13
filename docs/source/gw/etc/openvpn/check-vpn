@@ -1,0 +1,12 @@
+#!/bin/bash
+INTERFACE=tun0      # Set to name of VPN interface
+shopt -s nullglob
+
+# Test whether gateway is connected to the outer world via VPN
+ping -q -I $INTERFACE 8.8.8.8 -c 4 -i 1 -W 5 >/dev/null 2>&1
+
+if test $? -eq 0; then
+ echo "VPN works!"
+else
+ echo "VPN disconnected!"
+fi
