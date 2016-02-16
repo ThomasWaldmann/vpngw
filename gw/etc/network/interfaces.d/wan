@@ -1,5 +1,6 @@
 # this is the external USB adaptor connected to the internet router/modem
 
+allow-hotplug eth1
 auto eth1
 iface eth1 inet dhcp
 
