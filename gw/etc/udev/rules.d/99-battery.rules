@@ -1,0 +1,7 @@
+# shutdown after 2 minutes when running on battery.
+# if power comes back, cancel the shutdown.
+# the BIOS setup should be configured to automically power on the machine
+# when AC power is attached / comes back.
+SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", RUN+="/usr/sbin/shutdown --poweroff +2"
+SUBSYSTEM=="power_supply", ATTR{status}=="Unknown", RUN+="/usr/sbin/shutdown -c"
+
