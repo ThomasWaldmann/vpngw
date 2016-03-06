@@ -1,5 +1,6 @@
 #!/bin/sh
 DEV=$1
+GW=$5
 echo "iptables -D POSTROUTING -t nat -o $DEV -j MASQUERADE" >/tmp/down-$DEV.log
 iptables -D POSTROUTING -t nat -o $DEV -j MASQUERADE
 
