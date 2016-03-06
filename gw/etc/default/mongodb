@@ -1,0 +1,5 @@
+# only needed if you installed the ubiquiti unifi controller on the ap.
+# the controller starts mongodb on its own, no need to have an additional
+# "default" instance started by debian.
+ENABLE_MONGODB="no"
+
