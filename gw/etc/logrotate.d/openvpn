@@ -1,0 +1,11 @@
+/var/log/openvpn/*.log {
+        rotate 30
+        daily
+        compress
+        missingok
+        notifempty
+        postrotate
+                /usr/bin/killall -SIGHUP openvpn 2> /dev/null || :
+        endscript
+}
+
