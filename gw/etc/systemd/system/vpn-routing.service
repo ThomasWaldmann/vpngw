@@ -1,0 +1,9 @@
+[Unit]
+Description=VPN routing init script
+
+[Service]
+ExecStart=/etc/openvpn/scripts/vpn-routing.sh
+
+[Install]
+WantedBy=multi-user.target
+
