@@ -9,11 +9,11 @@ All relevant config files are in the "gw" directory.
 Basics
 ------
 
-Install Debian Linux 8.x (minimum install, 64bit is recommended).
+Install Debian Linux 11.x (minimum install, 64bit).
 
 After minimal installation is finished, we need to install some more packages.
 
-It seems like Debian 8 defaults to install a lot of "recommended" / "suggested"
+It seems like Debian 11 defaults to install a lot of "recommended" / "suggested"
 packages additionally to the stuff we need.
 
 If you don't like that and rather want to have a slim system:
@@ -28,11 +28,10 @@ If you don't like that and rather want to have a slim system:
 Essential Packages
 ~~~~~~~~~~~~~~~~~~
 
-etckeeper  # optional, but useful
 openvpn
 unbound
 isc-dhcp-server
-ferm
+ferm iptables iproute2
 vlan
 resolvconf
 unattended-upgrades
@@ -40,10 +39,14 @@ unattended-upgrades
 Nice to have packages
 ~~~~~~~~~~~~~~~~~~~~~
 
-ddclient libio-socket-ssl-perl ca-certificates  # update dynamic dns service 
-ntp ntpdate  # to have correct time
+wget curl  # to download stuff
+etckeeper  # to manage config changes
+ddclient  # update dynamic dns service 
+systemd-timesyncd ntpdate  # to have correct time
+locales  # avoid warnings when logging in via ssh
 rfkill  # to block unused bluetooth, wwan, wifi
-wpasupplicant iw  # to use the laptop wifi
+wpasupplicant iw wireless-tools  # to use the laptop wifi
+ethtool  # maybe needed to get your NICs working flawlessly
 
 Admin helpers
 ~~~~~~~~~~~~~
@@ -53,15 +56,20 @@ ssh vim screen mc ...
 Monitoring
 ~~~~~~~~~~
 
-htop  # CPU load
+htop atop # CPU load
 smartmontools # SSD/HDD health
 postfix mailutils  # if you want to send e-mails
 
 Hardware support
 ~~~~~~~~~~~~~~~~
 
-firmware-realtek  # optional, if you want to use the laptop's wifi
-                  # non-free apt repo
+Whatever you need for your hardware, e.g.:
+
+firmware-iwlwifi
+firmware-realtek
+firmware-linux-free
+firmware-misc-nonfree
+intel-microcode
 
 
 Hardware specifics
@@ -80,10 +88,12 @@ Network configuration
 
 See /etc/network/interfaces.d/wan and lan. Optional: wifi
 
-Make sure eth0 (internal adaptor, internal network) and eth1 (external adaptor,
-external network) are assigned as wanted.
+Make sure the wan, lan, wifi interfaces are assigned as wanted, see:
 
-If not, swap their device names: /etc/udev/rules.d/70-persistent-net.rules
+/etc/systemd/network/\*.link  # <-- adapt MAC addrs there as needed
+
+These .link files should be the only place needing changes related to network
+interfaces (their names), all other places use the "wan"/"lan"/"wifi" names.
 
 Some sysctl changes:
 
@@ -154,7 +164,7 @@ Internet traffic coming in via the internal interfaces gets directed to the
 internet directly (lan) or into a VPN (vlan10/20/30).
 
 See: /etc/ferm/ferm.conf, /etc/iproute2/rt_tables,
-     /etc/openvpn/scripts/{up,down}.sh
+     /etc/openvpn/scripts/{up,down,vpn-routing}.sh
 
 
 VPNs
@@ -162,7 +172,7 @@ VPNs
 
 See: /etc/openvpn
 
-This is a setup with 3 VPN tunnels from cyberghostvpn.com (should work in a
+This is a setup with 3 VPN tunnels from nordvpn.com (should work in a
 similar way for other VPN providers).
 
 You will need your own accounts, keys, certificates and credentials, of course.
@@ -185,11 +195,10 @@ hardware and software. The ubiquiti access points need a central controller
 software in Java that runs as a daemon and implements a web interface to
 control all your ubiquiti hardware. It can be installed on the laptop.
 
-::
+Installing the unifi controller software on debian is a bit cumbersome,
+thus using the install and update scripts made by Glenn R. is the easiest way:
 
-    # no X11 / java native GUI support necessary
-    apt-get install binutils jsvc mongodb-server default-jre-headless
-    dpkg -i unifi_sysvinit_all.deb  # download from ubnt.com
+https://glennr.nl/  (--> scripts ...)
 
 Then visit the admin webui: https://laptop-ip:8443/
 
