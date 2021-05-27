@@ -1,22 +1,24 @@
-# this is the internal gbit adaptor connected to the internal network
-
-auto eth0
-iface eth0 inet static
- address 192.168.0.1/24
+# Builtin interface
+allow-hotplug lan
+iface lan inet static
+  address 192.168.0.1/24
+  # e1000e adaptor hangs otherwise, not sure if all these needed:
+  offload-tx off
+  offload-sg off
+  offload-tso off
+  post-up /sbin/ethtool -K lan tx off rx off
 
 # vlan vid 10
-auto eth0.10
-iface eth0.10 inet static
+auto lan.10
+iface lan.10 inet static
  address 192.168.10.1/24
 
 # vlan vid 20
-auto eth0.20
-iface eth0.20 inet static
+auto lan.20
+iface lan.20 inet static
  address 192.168.20.1/24
 
 # vlan vid 30
-auto eth0.30
-iface eth0.30 inet static
+auto lan.30
+iface lan.30 inet static
  address 192.168.30.1/24
-
-
