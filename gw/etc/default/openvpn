@@ -12,9 +12,9 @@
 # a restart of the openvpn service (if you removed entries
 # you may have to stop those manually)
 #
-#AUTOSTART="all"
+AUTOSTART="nv-de nv-us nv-ro"
 #AUTOSTART="none"
-AUTOSTART="cg-de cg-ro cg-us"
+#AUTOSTART="home office"
 #
 # WARNING: If you're running systemd the rest of the
 # options in this file are ignored.

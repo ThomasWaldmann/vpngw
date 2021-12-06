@@ -1,3 +1,0 @@
-# only needed to install/update the ubiquiti unifi controller on the gateway
-deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti
-
