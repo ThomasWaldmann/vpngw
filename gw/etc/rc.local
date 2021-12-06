@@ -11,6 +11,7 @@
 #
 # By default this script does nothing.
 
+# either use "block" or "unblock" + device
 rfkill block wifi
 rfkill block wwan
 rfkill block bluetooth
